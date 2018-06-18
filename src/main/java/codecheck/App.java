@@ -50,6 +50,14 @@ public class App {
 		}
 	}
 	
+	private static String replace(String parameter) {
+		String returnParameter = parameter.replace(" ", "%20");
+		returnParameter = returnParameter.replace("'", "%27");
+		returnParameter = returnParameter.replace("+", "%2B");
+		
+		return returnParameter;
+	}
+	
 	private static Map<String, String> decode(String json) {
 		Map<String, String> jsonMap = new HashMap<String, String>();
 		String strArray[] = json.substring(1, json.length() -1).split(",");
@@ -63,13 +71,5 @@ public class App {
 		}
 		
 		return jsonMap;
-	}
-	
-	private static String replace(String parameter) {
-		String returnParameter = parameter.replace(" ", "%20");
-		returnParameter = returnParameter.replace("'", "%27");
-		returnParameter = returnParameter.replace("'", "%2B");
-		
-		return returnParameter;
 	}
 }
