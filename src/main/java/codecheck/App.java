@@ -14,14 +14,14 @@ public class App {
 //		System.setProperty("proxyHost", "tkyproxy.intra.tis.co.jp");
 //		System.setProperty("proxyPort", "8080");
 		
-		StringBuilder urlString = new StringBuilder("http://challenge-server.code-check.io/api/hash?q=");
-		urlString.append(args[0]);
+		String parameter = replace(args[0]);
+		String urlString = "http://challenge-server.code-check.io/api/hash?q=" + parameter;
 		
 		HttpURLConnection urlConn = null;
 		BufferedReader bufferedReader = null;
 		
 		try {
-			URL url = new URL(urlString.toString());
+			URL url = new URL(urlString);
 			urlConn = (HttpURLConnection) url.openConnection();
 			urlConn.setRequestMethod("GET");
 			urlConn.connect();
@@ -63,5 +63,13 @@ public class App {
 		}
 		
 		return jsonMap;
+	}
+	
+	private static String replace(String parameter) {
+		String returnParameter = parameter.replace(" ", "%20");
+		returnParameter = returnParameter.replace("'", "%27");
+		returnParameter = returnParameter.replace("'", "%2B");
+		
+		return returnParameter;
 	}
 }
